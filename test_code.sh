@@ -108,9 +108,7 @@ else
 	exit 1
 fi
 
-
-
-
+rm testfile
 
 exit 0
 
