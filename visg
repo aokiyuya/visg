@@ -40,7 +40,7 @@ do
 			exit 0
 			;;
 		t)
-			sh ./test_code.sh
+			sh $(cd $(dirname $(readlink $0 || echo $0));pwd)/test_code.sh
 			exit 0
 			;;
 		r)
@@ -55,10 +55,6 @@ do
 					;;
 				version)
 					version
-					exit 0
-					;;
-				test)
-					sh ./test_code.sh
 					exit 0
 					;;
 				read)
