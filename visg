@@ -1,0 +1,110 @@
+#! /bin/bash
+# @(#) This script is simplification script for Vim Shell Gei.
+# Author: Yuya Aoki
+# LICENSE: MIT
+
+help(){
+	echo "
+VISG - version 1.0 (2017 Mar 8)
+
+Usage:
+	visg [Options] +'Augments'	filtering use vim
+
+Options:
+	-h or --help                show help page
+	-v or --version             show version
+	-r or --read [rcfile]       use settingfile ( vimrc )
+	-t                          test command
+
+Caution:
+	The command depends VIM.
+	So you must install VIM if you wanna use the command.
+"
+
+}
+version(){
+	echo "VERSION 1.0.0"
+}
+
+OPT_FLAG_RC=0
+
+while getopts ':hvtr-:' OPT
+do
+	case $OPT in
+		h)
+			help
+			exit 0
+			;;
+		v)
+			version
+			exit 0
+			;;
+		t)
+			sh ./test_code.sh
+			exit 0
+			;;
+		r)
+			RCFILE=$2
+			OPT_FLAG_RC=1
+			shift;;
+		-)
+			case "${OPTARG}" in
+				help)
+					help
+					exit 0
+					;;
+				version)
+					version
+					exit 0
+					;;
+				test)
+					sh ./test_code.sh
+					exit 0
+					;;
+				read)
+					RCFILE=$2
+					OPT_FLAG_RC=1
+					shift;;
+				*)
+					echo "${OPTARG} Didn't match anything"
+			esac
+			;;
+		\?)
+			echo "undefined options ."
+			;;
+	esac
+done
+shift $(($OPTIND - 1))
+
+if [ $# = 0 ]; then
+	echo "No script"
+	help
+	exit 0
+fi
+
+if [ $# -gt 9 ]; then
+	echo "Too many argments."
+	echo "You can use '+' 9 times."
+	exit 1
+fi
+
+if [ $OPT_FLAG_RC = 0 ]; then
+	if [ -t 0 ]; then
+		vim -es "$@" +'%p|q!'
+		exit 0
+	else
+		vim -es /dev/stdin "$@" +'%p|q!'
+		exit 0
+	fi
+else
+	if [ -t 0 ]; then
+		vim -u $RCFILE -es "$@" +'%p|q!'
+		exit 0
+	else
+		vim -u $RCFILE -es /dev/stdin "$@" +'%p|q!'
+		exit 0
+	fi
+fi
+
+exit 0
+
