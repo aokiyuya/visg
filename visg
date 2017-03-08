@@ -5,7 +5,7 @@
 
 help(){
 	echo "
-VISG - version 1.0 (2017 Mar 8)
+VISG - version 0.1 (2017 Mar 8)
 
 Usage:
 	visg [Options] +'Augments'	filtering use vim
@@ -23,7 +23,7 @@ Caution:
 
 }
 version(){
-	echo "VERSION 1.0.0"
+	echo "VERSION 0.1.0"
 }
 
 OPT_FLAG_RC=0
