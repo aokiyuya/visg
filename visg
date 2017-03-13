@@ -142,7 +142,7 @@ exit 0
 
 OPT_FLAG_RC=0
 
-while getopts ':hvtr-:' OPT
+while getopts ':hvutr-:' OPT
 do
 	case $OPT in
 		h)
