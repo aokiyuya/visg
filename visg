@@ -13,7 +13,7 @@ Usage:
 Options:
 	-h or --help                show help page
 	-v or --version             show version
-	-r or --read [rcfile]       use settingfile ( vimrc )
+	-u, -r or --read [rcfile]       use settingfile ( vimrc )
 	-t                          test command
 
 Caution:
@@ -155,6 +155,10 @@ do
 			testfunction
 			;;
 		r)
+			RCFILE=$2
+			OPT_FLAG_RC=1
+			shift;;
+		u)
 			RCFILE=$2
 			OPT_FLAG_RC=1
 			shift;;
