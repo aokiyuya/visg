@@ -20,10 +20,12 @@ Caution:
 	The command depends VIM.
 	So you must install VIM if you wanna use the command.
 "
+	exit 0
 
 }
 version(){
 	echo "VERSION 0.1.0"
+	exit 0
 }
 
 OPT_FLAG_RC=0
@@ -33,11 +35,9 @@ do
 	case $OPT in
 		h)
 			help
-			exit 0
 			;;
 		v)
 			version
-			exit 0
 			;;
 		t)
 			sh $(cd $(dirname $(readlink $0 || echo $0));pwd)/test_code.sh
@@ -51,11 +51,9 @@ do
 			case "${OPTARG}" in
 				help)
 					help
-					exit 0
 					;;
 				version)
 					version
-					exit 0
 					;;
 				read)
 					RCFILE=$2
@@ -78,7 +76,8 @@ if [ $# = 0 ]; then
 	exit 0
 fi
 
-if [ $# -gt 9 ]; then
+
+if [ $(echo $* | grep -o + | grep -c +) -gt 9 ]; then
 	echo "Too many argments."
 	echo "You can use '+' 9 times."
 	exit 1
